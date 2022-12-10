@@ -15,7 +15,12 @@ console.log('\n\n up and running! \n\n')
 
 // const CATS_DB_CONNECTION_STRING = "mongodb+srv://carolinehughes:meat6328@cluster0.wbex4bi.mongodb.net/cats?retryWrites=true&w=majority"
 // const CONNECTION_STRING = 'mongodb://localhost:27017/'
-const CONNECTION_STRING = process.env.CATS_DB_CONNECTION_STRING || 'mongodb://localhost:27017/'
+const CONNECTION_STRING = process.env.CATS_DB_CONNECTION_STRING || 'mongodb://localhost:27017/cats'
 // process.env.MY_DB_CONNECTION_STRING
-  
+console.log('process.env.CATS_DB_CONNECTION_STRING = ')
+console.log(process.env.CATS_DB_CONNECTION_STRING)
+
+console.log('using CONNECTION STRING')
+console.log(CONNECTION_STRING)
+
 mongoose.connect(CONNECTION_STRING)
