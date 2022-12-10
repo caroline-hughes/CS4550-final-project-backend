@@ -11,12 +11,11 @@ UserController(app)
 
 app.listen(process.env.PORT || 4000);
 
-console.log('hey!')
+console.log('\n\n up and running! \n\n')
 
-const MY_DB_CONNECTION_STRING = "mongodb+srv://carolinehughes:meat6328@cluster0.wbex4bi.mongodb.net/cats?retryWrites=true&w=majority"
-
+// const CATS_DB_CONNECTION_STRING = "mongodb+srv://carolinehughes:meat6328@cluster0.wbex4bi.mongodb.net/cats?retryWrites=true&w=majority"
 // const CONNECTION_STRING = 'mongodb://localhost:27017/'
-const CONNECTION_STRING = MY_DB_CONNECTION_STRING || 'mongodb://localhost:27017/'
-  // process.env.MY_DB_CONNECTION_STRING
+const CONNECTION_STRING = process.env.CATS_DB_CONNECTION_STRING || 'mongodb://localhost:27017/'
+// process.env.MY_DB_CONNECTION_STRING
   
 mongoose.connect(CONNECTION_STRING)
