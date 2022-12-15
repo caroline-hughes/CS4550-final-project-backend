@@ -59,9 +59,8 @@ const UsersController = (app) => {
         .findByCredentials(
             credentials.username, credentials.password)
     if (existingUser) {
-        print('\n\n logged in!! the current user is: ')
-        print(existingUser)
-
+        console.log('\nsuccess. the current user is: ', existingUser)
+        console.log(existingUser)
         req.session['currentUser'] = existingUser
         res.json(existingUser)
         return
