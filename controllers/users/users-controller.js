@@ -19,7 +19,6 @@ const UsersController = (app) => {
     res.sendStatus(404)
   } 
 
-
   const createUser = async (req, res) => {
     const newUser = req.body;
     console.log('\n\n NEW USER TO ADD:')
@@ -84,9 +83,21 @@ const UsersController = (app) => {
   }
 
   const other_profile = (req, res) => {
-    const uid = req.body.uid;
+    const uid = req.params.uid;
     // TODO
   }
+
+  const getRecentActivity = async (req, res) => {
+    const uid = req.params.uid;
+    console.log('hit /recent/' + String(uid))
+    }
+
+  const getAnonRecentActivity = async (req, res) => {
+    console.log('hit /recent')
+    const usersByDateJoined = await userDao.findAllUsersByDateJoined()
+    console.log('most recent 3 people to join:', usersByDateJoined)
+    res.json(usersByDateJoined)
+  } 
 
   app.get('/users', findAllUsers); 
   app.get('/users/:uid', findUserById); 
@@ -99,6 +110,9 @@ const UsersController = (app) => {
   app.post('/logout', logout)
   app.post('/profile', my_profile) // profile of current user
   app.post('/profile/:uid', other_profile) // profile of a different user
-}
+
+  app.get('/recent', getAnonRecentActivity); 
+  app.get('/recent/:uid', getRecentActivity); 
+} 
 
 export default UsersController
