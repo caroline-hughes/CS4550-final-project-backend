@@ -44,13 +44,13 @@ const UsersController = (app) => {
   const register = async (req, res) => {
     const user = req.body;
     const existingUser = await userDao.findByUsername(user.username)
-    if (existingUser) {
+    if (Object.keys(existingUser).length !== 0) {
         console.log('cannot register user, username already exists')
         res.sendStatus(403)
         return
     }
     const currentUser = await userDao.createUser(user)
-    req.session['currentUser'] = currentUser
+    //req.session['currentUser'] = currentUser
     res.json(currentUser)
   }
 
@@ -60,10 +60,9 @@ const UsersController = (app) => {
         .findByCredentials(
             credentials.username, credentials.password)
     if (existingUser) {
-        print('\n\n logged in!! the current user is: ')
-        print(existingUser)
-
-        req.session['currentUser'] = existingUser
+        console.log('\n\n logged in!! the current user is: ')
+        console.log(existingUser)
+        //req.session['currentUser'] = existingUser
         res.json(existingUser)
         return
     }

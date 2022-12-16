@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 import express from 'express'
 import cors from 'cors'
 import UserController from "./controllers/users/users-controller.js"
@@ -13,6 +14,9 @@ const options = {
   family: 4
 }
 
+dotenv.config();
+
+console.log(process.env.CATS_DB_CONNECTION_STRING)
 const CONNECTION_STRING = process.env.CATS_DB_CONNECTION_STRING || 'mongodb://localhost:27017/cats'
 
 // console.log('process.env.CATS_DB_CONNECTION_STRING = ')
@@ -22,9 +26,12 @@ const CONNECTION_STRING = process.env.CATS_DB_CONNECTION_STRING || 'mongodb://lo
 
 mongoose.connect(CONNECTION_STRING, options)
 
-
 const app = express()
-app.use(cors())
+
+if (process.env.NODE_ENV !== 'production') {
+  app.use(cors({ origin: /localhost:\d{4}/, credentials: true }));
+}
+
 app.use(express.json())
 UserController(app)
 
