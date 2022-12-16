@@ -20,11 +20,6 @@ dotenv.config();
 console.log(process.env.CATS_DB_CONNECTION_STRING)
 const CONNECTION_STRING = process.env.CATS_DB_CONNECTION_STRING || 'mongodb://localhost:27017/cats'
 
-// console.log('process.env.CATS_DB_CONNECTION_STRING = ')
-// console.log(process.env.CATS_DB_CONNECTION_STRING)
-// console.log('using CONNECTION STRING')
-// console.log(CONNECTION_STRING)
-
 mongoose.connect(CONNECTION_STRING, options)
 
 const app = express();
@@ -32,6 +27,7 @@ app.use(cors({
     credentials: true,
     origin: 'http://localhost:3000'
 }))
+
 app.use(session({
     secret: 'should be an environment variable',
     resave: false,

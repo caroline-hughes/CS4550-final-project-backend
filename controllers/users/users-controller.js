@@ -1,7 +1,5 @@
 import * as userDao from './users-dao.js'
 
-let currentUser = null
-
 const UsersController = (app) => {
 
   const findAllUsers = async (req, res) => {
@@ -49,7 +47,6 @@ const UsersController = (app) => {
         return
     }
     const currentUser = await userDao.createUser(user)
-    //req.session['currentUser'] = currentUser
     res.json(currentUser)
   }
 
