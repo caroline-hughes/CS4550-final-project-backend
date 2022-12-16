@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 import express from 'express'
 import cors from 'cors'
 import session from 'express-session'
@@ -14,6 +15,9 @@ const options = {
   family: 4
 }
 
+dotenv.config();
+
+console.log(process.env.CATS_DB_CONNECTION_STRING)
 const CONNECTION_STRING = process.env.CATS_DB_CONNECTION_STRING || 'mongodb://localhost:27017/cats'
 
 // console.log('process.env.CATS_DB_CONNECTION_STRING = ')
@@ -22,7 +26,6 @@ const CONNECTION_STRING = process.env.CATS_DB_CONNECTION_STRING || 'mongodb://lo
 // console.log(CONNECTION_STRING)
 
 mongoose.connect(CONNECTION_STRING, options)
-
 
 const app = express();
 app.use(cors({
@@ -35,6 +38,7 @@ app.use(session({
     saveUninitialized: true,
     cookie: { secure: false }
 }))
+
 app.use(express.json())
 
 UserController(app)
