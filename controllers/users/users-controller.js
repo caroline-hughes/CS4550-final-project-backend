@@ -23,20 +23,20 @@ const UsersController = (app) => {
     const newUser = req.body;
     console.log('\n\n NEW USER TO ADD:')
     console.log(newUser)
-    const insertedUser = await usersDao.createUser(newUser);
+    const insertedUser = await userDao.createUser(newUser);
     res.json(insertedUser);
   }
 
   const deleteUser = async (req, res) => {
     const userToDelete = req.params.uid;
-    const status = await usersDao.deleteUser(userToDelete);
+    const status = await userDao.deleteUser(userToDelete);
     res.json(status);
   }
 
   const updateUser = async (req, res) => {
     const userToUpdate = req.params.uid;
     const updates = req.body;
-    const status = await usersDao.updateUser(userToUpdate, updates);
+    const status = await userDao.updateUser(userToUpdate, updates);
     res.json(status);
   }
 
@@ -55,17 +55,18 @@ const UsersController = (app) => {
 
   const login = async (req, res) => {
     const credentials = req.body
+    console.log('credentials=', credentials)
     const existingUser = await userDao
         .findByCredentials(
             credentials.username, credentials.password)
-    if (existingUser) {
+    if (existingUser.length > 0) {
         console.log('\nsuccess. the current user is: ', existingUser)
-        console.log(existingUser)
         req.session['currentUser'] = existingUser
         res.json(existingUser)
-        return
+    } else {
+      console.log('invalid credentials', credentials)
+      res.sendStatus(403)
     }
-    res.sendStatus(403)
 }
 
   const logout = (req, res) => {
