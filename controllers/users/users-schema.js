@@ -7,6 +7,7 @@ const schema = mongoose.Schema({
   password: { type: String, required: true },
   email: { type: String, required: true },
   phone: { type: String, required: true },
+  joined: { type: Date },
   admin: { type: Boolean, default: false, required: true },
   followers: { type: [String], default: [], required: true }, // list of ids or usernames, not sure which yet
   following: { type: [String], default: [], required: true }, // list of ids or usernames, not sure which yet
